@@ -1515,7 +1515,7 @@ begin
    r:=1;
    if CurrentSymbol=SymTO then begin
     Expect(SymTO);
-   end else if CurrentSymbol=SymDOWNTO then begin
+   end else if CurrentSymbol=sYMdownto then begin
     Expect(SymDOWNTO);
     r:=-1;
    end else begin
@@ -1583,7 +1583,7 @@ begin
   repeat
    GetSymbol;
    Statement;
-  until CurrentSymbol<>TokSemi;
+  until CurrentSymbol<>tOKsEMI;
   Expect(SymUNTIL);
   Expression(t);
   MustBe(TypeBOOL,t);
@@ -1605,7 +1605,7 @@ procedure Block(L:integer); forward;
 procedure Constant(var c,t:integer);
 var i,s:integer;
 begin
- if (CurrentSymbol=TokStrC) and (CurrentStringLength=1) then begin
+ if (CurrentSymbol=tOKsTRc) and (CurrentStringLength=1) then begin
   c:=ord(CurrentString[1]);
   t:=TypeCHAR;
  end else begin
