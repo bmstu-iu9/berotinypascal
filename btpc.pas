@@ -2325,13 +2325,16 @@ end;
 var JumpTable:array[1..MaximalCodeSize] of integer;
 
 procedure AssembleAndLink;
-var CountJumps,Opcode,Value,Index,PEEXECodeSize,PEEXESectionVirtualSize,PEEXESectionAlignment,PEEXECodeStart:integer;
+var
+   CountJumps,Opcode,Value,Index,PEEXECodeSize,PEEXESectionVirtualSize,
+   PEEXESectionAlignment,PEEXECodeStart:integer;
 begin
  EmitStubCode;
  PEEXECodeStart:=OutputCodeDataSize;
  LastOutputCodeValue:=locNone;
  PC:=0;
  CountJumps:=0;
+
  while PC<CodePosition do begin
   Opcode:=Code[PC];
   Value:=Code[PC+1];
