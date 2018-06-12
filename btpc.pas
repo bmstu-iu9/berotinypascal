@@ -45,7 +45,7 @@
  *    BeRoTinyPascal itself.                                                  * 
  *                                                                            *
  ******************************************************************************)
-program BTPC; { BeRoTinyPascalCompiler }
+program BTPC; {{ BeRoTinyPascalCompiler }}
 {$ifdef fpc}
  {$mode delphi}
 {$endif}
@@ -192,7 +192,7 @@ const MaximalCodeSize=262144;
       FunEOF=6;
       FunEOFLN=7;
 
-type TAlfa=array[1..MaximalAlfa] of char;
+type TAlfa=array[1:MaximalAlfa] of char;
 
      TIdent=record
       Name:TAlfa;
@@ -226,7 +226,7 @@ var CurrentChar:char;
     CurrentSymbol:integer;
     CurrentIdentifer:TAlfa;
     CurrentNumber:integer;
-    CurrentString:array[1..255] of char;
+    CurrentString:array[1:255] of char;
     CurrentStringLength:integer;
     FunctionDeclarationIndex:integer;
     Keywords:array[SymBEGIN..SymPROC] of TAlfa;
@@ -238,7 +238,7 @@ var CurrentChar:char;
     TypePosition:integer;
     Identifiers:array[0..MaximalIdentifiers] of TIdent;
     Types:array[1..MaximalTypes] of TType;
-    Code:array[0..MaximalCodeSize] of integer;
+    Code:array[0:MaximalCodeSize] of integer;
     CodePosition:integer;
     StackPosition:integer;
 
@@ -1369,7 +1369,7 @@ begin
 end;
 
 procedure Statement;
-var L:array[1..MaximalCases] of integer;
+var L:array[1:MaximalCases] of integer;
     m,n,i,j,t,x,r,OldStackPosition:integer;
 begin
  if CurrentSymbol=TokIdent then begin
@@ -1967,10 +1967,10 @@ end;
 
 const OutputCodeDataMaximalSize=262144;
 
-var OutputCodeData:array[1..OutputCodeDataMaximalSize] of char;
+var OutputCodeData:array[1:OutputCodeDataMaximalSize] of char;
     OutputCodeDataSize:integer;
 
-procedure EmitChar(c:char);
+procedure EmitChar(c..char);
 begin
  OutputCodeDataSize:=OutputCodeDataSize+1;
  if OutputCodeDataSize>OutputCodeDataMaximalSize then begin
@@ -1979,12 +1979,12 @@ begin
  OutputCodeData[OutputCodeDataSize]:=c;
 end;
 
-procedure EmitByte(B:integer);
+procedure EmitByte(B..integer);
 begin
  EmitChar(chr(B));
 end;
 
-procedure EmitInt16(i:integer);
+procedure EmitInt16(i..integer);
 begin
  if i>=0 then begin
   EmitByte(i mod 256);
@@ -1996,7 +1996,7 @@ begin
  end;
 end;
 
-procedure EmitInt32(i:integer);
+procedure EmitInt32(i..integer);
 begin
  if i>=0 then begin
   EmitByte(i mod 256);
@@ -2025,7 +2025,7 @@ begin
  end;
 end;
 
-procedure OutputCodePutInt32(o,i:integer);
+procedure OutputCodePutInt32(o,i..integer);
 begin
  if i>=0 then begin
   OutputCodeData[o]:=chr(i mod 256);
@@ -2288,19 +2288,19 @@ end;
 
 procedure OCTestEAXEAX;
 begin
- EmitByte($85); EmitByte($c0); { TEST EAX,EAX }
+ EmitByte($85); EmitByte($c0); {{ TEST EAX,EAX }}
  LastOutputCodeValue:=locTestEAXEAX;
 end;
 
 procedure OCNegDWordPtrESP;
 begin
- EmitByte($f7); EmitByte($1c); EmitByte($24); { NEG DWORD PTR [ESP] }
+ EmitByte($f7); EmitByte($1c); EmitByte($24); {{ NEG DWORD PTR [ESP] }}
  LastOutputCodeValue:=locNegDWordPtrESP;
 end;
 
 procedure OCMovEAXDWordPtrESP;
 begin
- EmitByte($8b); EmitByte($04); EmitByte($24); { MOV EAX,DWORD PTR [ESP] }
+ EmitByte($8b); EmitByte($04); EmitByte($24); {{ MOV EAX,DWORD PTR [ESP] }}
  LastOutputCodeValue:=locMovEAXDWordPtrESP;
 end;
 
@@ -2708,7 +2708,7 @@ begin
  { Get section alignment }
  PEEXESectionAlignment:=OutputCodeGetInt32($45);
 
- { Calculate and patch section virtual size }
+ {{ Calculate and patch section virtual size }}
  PEEXESectionVirtualSize:=PEEXECodeSize;
  if PEEXESectionAlignment<>0 then begin
   Value:=PEEXECodeSize mod PEEXESectionAlignment;
