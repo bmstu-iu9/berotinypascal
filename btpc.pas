@@ -42,10 +42,10 @@
  *    and BeRoTinyPascal have support for that.                               *
  * 5. Don't use any libraries/units except the RTL system unit functions      *
  * +. Make sure the code compiles with Delphi 7, FreePascal >= 3.0 and with   *
- *    BeRoTinyPascal itself.                                                  * 
+ *    BeRoTinyPascal itself.                                                  *
  *                                                                            *
  ******************************************************************************)
-program BTPC; {{ BeRoTinyPascalCompiler }}
+program BTPC; {{ BeRoTinyPascalCompiler }
 {$ifdef fpc}
  {$mode delphi}
 {$endif}
@@ -1098,7 +1098,7 @@ begin
    end;
    if n=FunWRITELN then begin
     EmitOpcode2(OPWrL);
-   end; 
+   end;
   end;
   FunREAD,FunREADLN:begin
    if n=FunREAD then begin
@@ -1682,7 +1682,7 @@ var i,j,Size,FieldType:integer;
 begin
  if CurrentSymbol=SymPACKED then begin
   GetSymbol;
- end; 
+ end;
  if CurrentSymbol=TokIdent then begin
   i:=Position;
   if Identifiers[i].Kind<>IdTYPE then begin
@@ -2004,7 +2004,7 @@ begin
   EmitByte((i div 65536) mod 256);
   EmitByte(i div 16777216);
  end else begin
-  i:=-(i+1);        
+  i:=-(i+1);
   EmitByte(255-(i mod 256));
   EmitByte(255-((i div 256) mod 256));
   EmitByte(255-((i div 65536) mod 256));
@@ -2288,19 +2288,19 @@ end;
 
 procedure OCTestEAXEAX;
 begin
- EmitByte($85); EmitByte($c0); {{ TEST EAX,EAX }}
+ EmitByte($85); EmitByte($c0); {{ TEST EAX,EAX }
  LastOutputCodeValue:=locTestEAXEAX;
 end;
 
 procedure OCNegDWordPtrESP;
 begin
- EmitByte($f7); EmitByte($1c); EmitByte($24); {{ NEG DWORD PTR [ESP] }}
+ EmitByte($f7); EmitByte($1c); EmitByte($24); {{ NEG DWORD PTR [ESP] }
  LastOutputCodeValue:=locNegDWordPtrESP;
 end;
 
 procedure OCMovEAXDWordPtrESP;
 begin
- EmitByte($8b); EmitByte($04); EmitByte($24); {{ MOV EAX,DWORD PTR [ESP] }}
+ EmitByte($8b); EmitByte($04); EmitByte($24); {{ MOV EAX,DWORD PTR [ESP] }
  LastOutputCodeValue:=locMovEAXDWordPtrESP;
 end;
 
@@ -2373,7 +2373,7 @@ begin
     LastOutputCodeValue:=locNone;
    end;
    OPRem2:begin
-    OCPopEAX;  
+    OCPopEAX;
     EmitByte($8b); EmitByte($d8); { MOV EBX,EAX }
     EmitByte($25); EmitByte($01); EmitByte($00); EmitByte($00); EmitByte($80); { AND EAX,$80000001 }
     EmitByte($79); EmitByte($05); { JNS +$05 }
@@ -2708,7 +2708,7 @@ begin
  { Get section alignment }
  PEEXESectionAlignment:=OutputCodeGetInt32($45);
 
- {{ Calculate and patch section virtual size }}
+ {{ Calculate and patch section virtual size }
  PEEXESectionVirtualSize:=PEEXECodeSize;
  if PEEXESectionAlignment<>0 then begin
   Value:=PEEXECodeSize mod PEEXESectionAlignment;
